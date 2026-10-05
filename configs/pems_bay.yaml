@@ -1,0 +1,33 @@
+# PEMS-BAY (Table 2).
+defaults:
+  - _common
+  - _self_
+
+dataset:
+  name: pems_bay
+  window: 12
+  horizon: 12
+  covariates: {year: false, day: true, weekday: true, mask: false}
+  connectivity: {method: distance, threshold: 0.1, include_self: false}
+  splitting: {val_len: 0.1, test_len: 0.2}
+  scaler: standard
+
+model:
+  hidden_size: 128         # 64 and 32 for the parameter-efficiency study
+  num_blocks: 1
+  step_size: 0.1
+  forcing_style: linear
+  input_style: combine
+  fix_resistance: true
+  use_dissipation: true
+  use_forcing: true
+
+loss: mae
+lr: 5e-4
+weight_decay: 0
+cosine_schedule: true
+epochs: 200
+patience: 50
+batch_size: 64
+train_batches: 300
+monitor: val_mae

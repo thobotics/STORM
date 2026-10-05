@@ -1,0 +1,41 @@
+# EngRAD (Table 3).
+defaults:
+  - _common
+  - _self_
+
+dataset:
+  name: engrad
+  window: 24
+  horizon: 6
+  engrad:
+    target_channels: shortwave_radiation
+    covariate_channels: [temperature_2m, relative_humidity_2m, precipitation, cloud_cover]
+    mask_zero_radiance: true
+    precipitation_unit: cm
+  covariates: {year: true, day: true, weekday: false, mask: false}
+  connectivity: {method: distance, threshold: 0.1, theta: 50, knn: 8, force_symmetric: true,
+                 include_self: false}
+  splitting: {method: engrad, val_len: 2016, val_seq_len: 168, first_val_step: [2019, 1, 1],
+              first_test_step: [2020, 1, 1]}
+  scaler: minmax
+
+model:
+  hidden_size: 128
+  num_blocks: 1
+  step_size: 0.2
+  forcing_style: linear
+  input_style: combine
+  fix_resistance: false     # adaptive resistance
+  use_dissipation: true
+  use_forcing: true
+
+loss: mae
+lr: 5e-4
+weight_decay: 0
+cosine_schedule: true
+epochs: 200
+patience: 50
+batch_size: 64
+train_batches: 300
+monitor: val_mae
+scale_target: true

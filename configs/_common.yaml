@@ -1,0 +1,14 @@
+# Shared run settings. Each experiment config includes this file.
+hydra:
+  run:
+    dir: logs/${dataset.name}/${now:%Y-%m-%d_%H-%M-%S}
+  sweep:
+    dir: logs/${dataset.name}/${now:%Y-%m-%d_%H-%M-%S}
+    subdir: ${hydra.job.num}
+
+seed: 0           # several seeds: hydra.mode=MULTIRUN seed=0,1,2,3,4
+workers: 0
+ckpt: null        # path to a checkpoint: skip training and only test
+grad_clip_val: 5
+stopping_threshold: null
+scale_target: false

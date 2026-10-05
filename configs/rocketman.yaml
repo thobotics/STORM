@@ -1,0 +1,38 @@
+# RocketMan (Appendix F, L = 2). One run = one cell (k, i) of one graph.
+defaults:
+  - _common
+  - _self_
+
+dataset:
+  name: rocketman
+  graph: ring              # ring | lollipop
+  spatial_order: 2         # k, hops from the target node (0-8)
+  temporal_distance: 2     # i, steps before the end of the window (0-8)
+  n_nodes: 16
+  n_samples: 20820
+  window: 9
+  horizon: 1
+  val_len: 320
+  test_len: 500
+  data_seed: 16            # same data for every model seed
+
+model:
+  hidden_size: 128         # 64 and 32 for the parameter-efficiency study
+  num_blocks: 2
+  step_size: 0.3
+  forcing_style: tanh
+  input_style: combine
+  fix_resistance: true
+  use_dissipation: true
+  use_forcing: true
+
+loss: mse
+lr: 5e-4
+weight_decay: 0
+cosine_schedule: true
+epochs: 150
+patience: 100
+batch_size: 32
+train_batches: 400
+monitor: val_loss
+stopping_threshold: 1e-3   # stop once validation MSE is below 1e-3

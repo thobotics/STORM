@@ -1,0 +1,14 @@
+# Install PyTorch and the PyG extensions first (see README), then: pip install -r requirements.txt
+torch-geometric==2.7.0
+pytorch-lightning==2.5.5
+torchmetrics==1.8.2
+hydra-core==1.3.2
+omegaconf==2.3.0
+numpy==1.26.4
+scipy==1.16.3
+pandas==2.3.3
+tables==3.10.2
+h5py==3.15.1
+torch-spatiotemporal @ git+https://github.com/TorchSpatiotemporal/tsl.git@30bad2227f5dba285e050c6f7b4f69cc969c8462
+# Only needed to regenerate SURF-WAVE (scripts/generate_surf_wave.py)
+warp-lang==1.11.0

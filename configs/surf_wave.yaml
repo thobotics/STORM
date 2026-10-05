@@ -1,0 +1,35 @@
+# SURF-WAVE (Table 1).
+defaults:
+  - _common
+  - _self_
+
+dataset:
+  name: surf_wave
+  path: data/surf_wave.h5
+  window: 25
+  horizon: 25
+  val_len: 0.1
+  test_len: 0.2
+
+model:
+  hidden_size: 128
+  num_blocks: 1
+  step_size: 0.25
+  forcing_style: linear
+  input_style: combine
+  fix_resistance: true
+  use_dissipation: true
+  use_forcing: true
+
+loss: weighted_mse
+grid_weight: 1.0
+ball_weight: 10.0
+lr: 5e-5
+weight_decay: 1e-4
+cosine_schedule: false
+epochs: 5000
+patience: 1000
+batch_size: 8
+train_batches: null
+monitor: val_mse
+scale_target: true
